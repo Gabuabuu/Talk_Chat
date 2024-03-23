@@ -38,6 +38,7 @@ const createMessageOtherElement = (content, sender, senderColor) => {
   div.appendChild(span)
 
   span.innerHTML = sender
+  span.style.color = senderColor
 
   div.innerHTML += content
 
@@ -51,12 +52,23 @@ const getRandomColor = () => {
   return colors[randomIndex]
 }
 
+const scrollScreen = () => {
+  window.scrollTo({
+    top: document.body.scrollHeight,
+    behavior: "smooth"
+  })
+}
+
 const processMessage = ({ data }) => {
   const { userId, userName, userColor, content } = JSON.parse(data)
 
+  const message = userId == user.id ? createMessageSelfElement(content) : createMessageOtherElement(content, userName, userColor)
+
   const element = createMessageOtherElement(content, user.name, user.color)
 
-  chatMessages.appendChild(element)
+  chatMessages.appendChild(message)
+
+  scrollScreen()
 }
 
 const handleLogin = (event) => {
