@@ -10,8 +10,7 @@ wss.on("connection", (ws) => {
   ws.on("error", console.error)
 
   ws.on("message", (data) => {
-
-    wss.clients.forEach((client) => ws.send(data.toString()))
+     wss.clients.forEach((client) => ws.send(data.toString()))
   })
   console.log("Novo Usuario entrou no chat")
 })
