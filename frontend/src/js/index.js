@@ -71,7 +71,7 @@ const processMessage = ({ data }) => {
   scrollScreen()
 }
 
-const handleLogin = (event) => {
+const handleLogin = async (event) => {
   event.preventDefault()
 
   user.id = crypto.randomUUID()
@@ -81,7 +81,7 @@ const handleLogin = (event) => {
   login.style.display = "none"
   chat.style.display = "flex"
 
-  webSocket = new WebSocket("wss://talk-chat-backend.onrender.com")
+  webSocket = await new WebSocket("wss://talk-chat-backend.onrender.com")
 
   webSocket.onmessage = processMessage
 
