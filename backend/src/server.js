@@ -14,3 +14,5 @@ wss.on("connection", (ws) => {
   })
   console.log("Novo Usuario entrou no chat")
 })
+
+console.log("Aplicação ligada")
