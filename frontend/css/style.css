@@ -75,6 +75,38 @@ body {
   background-color: #fff;
 }
 
+
+.sidebar {
+  background-color: rgba(216, 44, 44, 0.511);
+  background-repeat: repeat-y;
+  display: flex; /* Certifique-se de que a sidebar está visível */
+  flex-direction: column;
+  height: 100vh; /* Altura total da viewport */
+  text-align: center;
+  width: 25%;
+  padding: 20px;
+  position: fixed; /* Fica fixo na tela */
+  left: 0; /* Coloque à esquerda */
+  top: 0; /* Inicie no topo */
+}
+
+.sidebar > h2 {
+  display: block;
+  font-size: 1.8em;
+  position: fixed;
+}
+
+.user-list {
+  display: flex;
+  flex-direction: column;
+  margin: 40px;
+  line-height: 60px;
+  font-size: 2em;
+  position: fixed;
+  left: 0;
+}
+
+
 .chat {
   width: 100%;
   height: 100%;
@@ -128,7 +160,7 @@ body {
 .chat__messages > div {
   padding: 10px;
   width: auto;
-  font-size: 0.9rem;
+  font-size: 1.8em;
   font-weight: 500;
   margin-bottom: 15px;
   line-height: 22px;
@@ -140,6 +172,7 @@ body {
   border-radius: 10px 10px 0 10px;
   align-self: flex-end;
   width: 100%;
+  font-size: 4em;
 }
 
 
