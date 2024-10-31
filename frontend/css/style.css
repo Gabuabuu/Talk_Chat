@@ -77,9 +77,9 @@ body {
 
 
 .sidebar {
-  background-color: rgba(216, 44, 44, 0.511);
+  background-color: rgb(27, 26, 26);
   background-repeat: repeat-y;
-  display: flex; /* Certifique-se de que a sidebar está visível */
+  display: none; /* Certifique-se de que a sidebar está visível */
   flex-direction: column;
   height: 100vh; /* Altura total da viewport */
   text-align: center;
