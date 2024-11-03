@@ -2,11 +2,12 @@ const login = document.querySelector(".login")
 const loginForm = login.querySelector(".login__form")
 const loginInput = login.querySelector(".login__input")
 
+const userList = document.querySelector(".sidebar")
+const onlineUser = document.querySelector(".user-list");
 const chat = document.querySelector(".chat")
 const chatForm = chat.querySelector(".chat__form")
 const chatInput = chat.querySelector(".chat__input")
 const chatMessages = chat.querySelector(".chat__messages")
-
 
 const colors = [
   "cadetblue",
@@ -21,11 +22,21 @@ const user = { id: "", name: "", color: "" }
 
 const createMessageSelfElement = (content) => {
   const div = document.createElement("div")
-
   div.classList.add("my__messages")
   div.innerHTML = content
-
   return div
+}
+
+const addUserToList = (userName, userColor) => {
+  // Cria um novo elemento li
+  const userItem = document.createElement("li");
+  
+  // Define o conteúdo do li
+  userItem.textContent = userName; // Define o nome do usuário
+  userItem.style.color = userColor; // Define a cor do texto
+  
+  // Adiciona o li à ul
+  onlineUser.appendChild(userItem);
 }
 
 const createMessageOtherElement = (content, sender, senderColor) => {
@@ -62,12 +73,11 @@ const scrollScreen = () => {
 const processMessage = ({ data }) => {
   const { userId, userName, userColor, content } = JSON.parse(data)
 
-  const message = userId == user.id ? createMessageSelfElement(content) : createMessageOtherElement(content, userName, userColor)
-
-  const element = createMessageOtherElement(content, user.name, user.color)
+  const message = userId === user.id
+    ? createMessageSelfElement(content)
+    : createMessageOtherElement(content, userName, userColor)
 
   chatMessages.appendChild(message)
-
   scrollScreen()
 }
 
@@ -78,8 +88,18 @@ const handleLogin = async (event) => {
   user.name = loginInput.value
   user.color = getRandomColor()
 
+  // Exibe as seções apropriadas
   login.style.display = "none"
+  userList.style.display = "flex"
   chat.style.display = "flex"
+
+  // Adiciona o usuário à lista
+  const userItem = document.createElement("li")
+  userItem.textContent = user.name
+  userItem.style.color = user.color
+  onlineUser.appendChild(userItem)
+
+  
 
   webSocket = await new WebSocket("wss://talk-chat-backend.onrender.com")
 
@@ -99,9 +119,8 @@ const sendMessage = (event) => {
   }
 
   webSocket.send(JSON.stringify(message))
-
   chatInput.value = ""
 }
 
-login.addEventListener("submit", handleLogin)
-chat.addEventListener("submit", sendMessage)
+loginForm.addEventListener("submit", handleLogin, addUserToList)
+chatForm.addEventListener("submit", sendMessage)
